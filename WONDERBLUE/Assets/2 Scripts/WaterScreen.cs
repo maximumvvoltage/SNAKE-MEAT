@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WaterVolume : MonoBehaviour
+public class WaterScreen : MonoBehaviour
 {
     [Header("References")]
     public BoxCollider waterVolume;
