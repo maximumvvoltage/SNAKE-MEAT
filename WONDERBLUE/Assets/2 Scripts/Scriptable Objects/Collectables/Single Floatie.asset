@@ -15,3 +15,6 @@ MonoBehaviour:
   itemName: Single Floatie
   itemDescription: How ya gwan float wit only wan bomba floatie?
   itemID: 0
+  LossieComment: Just one floatie? Egh, I'm sure Lifeguard will find its owner splashing
+    around in no time.
+  interactRange: 5

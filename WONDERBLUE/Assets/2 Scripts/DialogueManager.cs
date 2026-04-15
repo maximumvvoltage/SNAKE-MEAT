@@ -20,7 +20,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Player")]
     [SerializeField] private GameObject player;
     [SerializeField] private Rigidbody playerRigidbody;
-    private PlanetWalkingV2 playerMovement;
+    private PlayerV4 playerMovement;
     private Vector3 frozenPosition;
     private Quaternion frozenRotation;
 
@@ -47,7 +47,7 @@ public class DialogueManager : MonoBehaviour
         instance = this;
         playerRigidbody = player.GetComponent<Rigidbody>();
         
-        playerMovement = player.GetComponentInChildren<PlanetWalkingV2>();
+        playerMovement = player.GetComponentInChildren<PlayerV4>();
     
         if (playerMovement == null)
             Debug.LogError("PlayerV2 not found!");

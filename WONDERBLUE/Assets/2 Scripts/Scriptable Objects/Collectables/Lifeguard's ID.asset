@@ -15,3 +15,5 @@ MonoBehaviour:
   itemName: Lifeguard's ID
   itemDescription: I wonder how long he's been looking for this?
   itemID: 4
+  LossieComment: This Lifeguard's ID? How did you even get this?
+  interactRange: 5

@@ -15,3 +15,5 @@ MonoBehaviour:
   itemName: Flipflop
   itemDescription: Havaianas!
   itemID: 3
+  LossieComment: Hah, I would hate to be the chick that lost this one.
+  interactRange: 5

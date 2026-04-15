@@ -5,22 +5,24 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private GameObject options;
+    [SerializeField] private GameObject ground;
     public bool hamburger;
     public bool gamepaused;
     public Animator animator;
+    
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //SoundManager.Play("Song1");
         animator = GetComponent<Animator>();
-        
+        SetupGround();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void SetupGround()
     {
-        
+        ground.name = "Ground";
+        ground.layer = LayerMask.NameToLayer("Ground"); //basically automatically sets it up with the name + layer in case something corrupts
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -64,13 +64,13 @@ namespace WaterStylizedShader
         {
             if (isUnderwater)
             {
-                rb.linearDamping = underWaterDrag;
-                rb.angularDamping = underWaterAngularDrag;
+                rb.drag = underWaterDrag;
+                rb.angularDrag = underWaterAngularDrag;
             }
             else
             {
-                rb.linearDamping = airWaterDrag;
-                rb.angularDamping = airWaterAngularDrag;
+                rb.drag = airWaterDrag;
+                rb.angularDrag = airWaterAngularDrag;
             }
         }
     }

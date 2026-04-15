@@ -2,16 +2,20 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
+    [Header("Item Data")]
     public CollectableSO collectableSO;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public void Interact()
     {
-        
+        if (collectableSO == null)
+        {
+            Debug.LogWarning($"[Collectable] '{name}' has no CollectableData assigned!");
+            return;
+        }
+
+        Debug.Log((collectableSO.itemName) + (collectableSO.itemDescription));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float InteractRange =>
+        collectableSO != null ? collectableSO.interactRange : 3f;
 }

@@ -7,4 +7,5 @@ public class CollectableSO : ScriptableObject
     public string itemDescription;
     public int itemID;
     public string LossieComment;
+    public float interactRange;
 }

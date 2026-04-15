@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Broken Sunglasses
   m_EditorClassIdentifier: 
   itemName: Broken Sunglasses
-  itemDescription: Perfect for going blind in one eye!
+  itemDescription: Perfect for staring at the sun!
   itemID: 1
+  LossieComment: Ouuuhh... Er.. Thanks! Just.. Throw it up on the shelf.
+  interactRange: 5
