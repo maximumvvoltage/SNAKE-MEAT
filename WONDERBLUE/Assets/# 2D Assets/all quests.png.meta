@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 317c009d0ced3f44a9bc90d04f6ff021
+guid: e327698741b5b1941a1889efe169baf7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,8 +37,8 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
   nPOTScale: 0
   lightmap: 0
@@ -67,7 +67,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 4
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -80,7 +80,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -107,13 +107,12 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c7333dd4569eab3419badab757f95737
-      internalID: -587603135
+      spriteID: a9c3ac56de7c4d24dbe2bb1024e7abe5
+      internalID: -1294161932
       vertices: []
       indices: 
       edges: []
@@ -129,13 +128,12 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 145f45e990798ae4c941503e926e857f
-      internalID: 266108001
+      spriteID: 28ab4e0f7f1282141a3ce17ffb44b6e7
+      internalID: -1612605385
       vertices: []
       indices: 
       edges: []
@@ -151,34 +149,30 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2603eda5a01cfd43b66acae0b1a8b74
-      internalID: -1673344050
+      spriteID: 073d47962ea2e0548b84fc541f67482e
+      internalID: 667717019
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
-    customData: 
     physicsShape: []
     bones: []
-    spriteID: 8303ef07b9773c946b43e4e76d755360
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    spriteCustomMetadata:
-      entries: []
     nameFileIdTable:
-      all quests_0: -587603135
-      all quests_1: 266108001
-      all quests_2: -1673344050
+      all quests_0: -1294161932
+      all quests_1: -1612605385
+      all quests_2: 667717019
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
