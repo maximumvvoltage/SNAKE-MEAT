@@ -1,8 +1,8 @@
-﻿Shader "Stylized Water 2/Cutout" 
+Shader "Stylized Water 2/Cutout" 
 {
 	Properties
 	{
-		//[CurvedWorldBendSettings] _CurvedWorldBendSettings("0|1|1", Vector) = (0, 0, 0, 0)
+[CurvedWorldBendSettings] _CurvedWorldBendSettings("0|1|1", Vector) = (0, 0, 0, 0)
 	}
 	SubShader
 	{
@@ -23,10 +23,10 @@
 			#pragma multi_compile_instancing
 			
 			#include "Libraries/URP.hlsl"
-			//#define CURVEDWORLD_BEND_TYPE_CLASSICRUNNER_X_POSITIVE
-			//#define CURVEDWORLD_BEND_ID_1
-			//#pragma shader_feature_local CURVEDWORLD_DISABLED_ON
-			//#include "Assets/Amazing Assets/Curved World/Shaders/Core/CurvedWorldTransform.cginc"
+#define CURVEDWORLD_BEND_TYPE_CLASSICRUNNER_X_POSITIVE
+#define CURVEDWORLD_BEND_ID_1
+#pragma shader_feature_local CURVEDWORLD_DISABLED_ON
+#include "Assets/8 Add-ons/Amazing Assets/Curved World/Shaders/Core/CurvedWorldTransform.cginc"
 
 			struct Attributes
             {

@@ -164,7 +164,7 @@
 
         %tessellation_properties%
 		
-        //[CurvedWorldBendSettings] _CurvedWorldBendSettings("0,5|1|1", Vector) = (0, 0, 0, 0)
+        [CurvedWorldBendSettings] _CurvedWorldBendSettings("0,4,5,6|1|1", Vector) = (0, 0, 0, 0)
 
         //Purely here so the _BaseColor gets multiplied with a white color during lightmapping
         [MainTexture] [HideInInspector] _BaseMap("Albedo", 2D) = "white" {}
@@ -190,10 +190,10 @@
 		%custom_directives%
 		
 		//Curved World 2020 directives:
-        //#pragma shader_feature_local CURVEDWORLD_BEND_TYPE_CLASSICRUNNER_X_POSITIVE CURVEDWORLD_BEND_TYPE_LITTLEPLANET_Y
-        //#define CURVEDWORLD_BEND_ID_1
-        //#pragma shader_feature_local CURVEDWORLD_DISABLED_ON
-        //#pragma shader_feature_local CURVEDWORLD_NORMAL_TRANSFORMATION_ON
+#pragma shader_feature_local CURVEDWORLD_BEND_TYPE_CLASSICRUNNER_X_POSITIVE CURVEDWORLD_BEND_TYPE_LITTLEPLANET_X CURVEDWORLD_BEND_TYPE_LITTLEPLANET_Y CURVEDWORLD_BEND_TYPE_LITTLEPLANET_Z
+#define CURVEDWORLD_BEND_ID_1
+        #pragma shader_feature_local CURVEDWORLD_DISABLED_ON
+        #pragma shader_feature_local CURVEDWORLD_NORMAL_TRANSFORMATION_ON
 
         //Triggers a "DX3D11 swapchain error" crash
         //#pragma editor_sync_compilation
