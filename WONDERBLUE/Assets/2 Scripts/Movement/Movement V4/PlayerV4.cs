@@ -94,8 +94,8 @@ public class PlayerV4 : MonoBehaviour
             bool running = Input.GetKey(KeyCode.LeftShift);
             float speed = running ? runSpeed : walkSpeed;
             Vector3 vel = moveDir * speed; 
-            vel.y = rb.velocity.y;
-            rb.velocity = vel;
+            vel.y = rb.linearVelocity.y;
+            rb.linearVelocity = vel;
             
             // accumulates time depending on how long you've been walking for. then, once the timer spills over the delay time, it begins to center itself
             movingTimer += Time.fixedDeltaTime;
@@ -108,7 +108,7 @@ public class PlayerV4 : MonoBehaviour
         }
         else
         {
-            rb.velocity = new Vector3(rb.velocity.x * 0.8f, rb.velocity.y, rb.velocity.z * 0.8f);
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x * 0.8f, rb.linearVelocity.y, rb.linearVelocity.z * 0.8f);
             movingTimer = 0f;
             autoCentering = false;
         }
@@ -120,7 +120,7 @@ public class PlayerV4 : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }

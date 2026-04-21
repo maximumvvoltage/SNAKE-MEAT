@@ -63,10 +63,10 @@ public class WaterScreen : MonoBehaviour
         underwaterTargetY = waterSurfaceY - underwaterDepth;
         targetY = surfaceTargetY;
 
-        originalDrag = playerRb.drag;
+        originalDrag = playerRb.linearDamping;
         originalUseGravity = playerRb.useGravity;
 
-        playerRb.drag = dragForce;
+        playerRb.linearDamping = dragForce;
         playerRb.useGravity = true;
     }
 
@@ -80,7 +80,7 @@ public class WaterScreen : MonoBehaviour
 
         if (playerRb != null)
         {
-            playerRb.drag = originalDrag;
+            playerRb.linearDamping = originalDrag;
             playerRb.useGravity = originalUseGravity;
             playerRb = null;
         }
@@ -115,7 +115,7 @@ public class WaterScreen : MonoBehaviour
         {
             if (spacePreviouslyHeld && !holdRegistered)
             {
-                Vector3 boostDirection = new Vector3(playerRb.velocity.x, 0f, playerRb.velocity.z).normalized;
+                Vector3 boostDirection = new Vector3(playerRb.linearVelocity.x, 0f, playerRb.linearVelocity.z).normalized;
 
                 if (boostDirection == Vector3.zero)
                     boostDirection = playerRb.transform.forward;

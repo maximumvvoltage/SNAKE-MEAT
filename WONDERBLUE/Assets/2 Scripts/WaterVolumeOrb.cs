@@ -56,10 +56,10 @@ public class WaterOrbVolume : MonoBehaviour
         idleTimer = 0f;
         previousPlayerPosition = playerRb.position;
 
-        originalDrag = playerRb.drag;
+        originalDrag = playerRb.linearDamping;
         originalUseGravity = playerRb.useGravity;
 
-        playerRb.drag = dragForce;
+        playerRb.linearDamping = dragForce;
         playerRb.useGravity = false;
     }
 
@@ -72,7 +72,7 @@ public class WaterOrbVolume : MonoBehaviour
 
         if (playerRb != null)
         {
-            playerRb.drag = originalDrag;
+            playerRb.linearDamping = originalDrag;
             playerRb.useGravity = originalUseGravity;
             playerRb = null;
         }
@@ -94,11 +94,11 @@ public class WaterOrbVolume : MonoBehaviour
         {
             hasEscaped = true;
 
-            Vector3 escapeDirection = playerRb.velocity.magnitude > 0.1f
-                ? playerRb.velocity.normalized
+            Vector3 escapeDirection = playerRb.linearVelocity.magnitude > 0.1f
+                ? playerRb.linearVelocity.normalized
                 : -toCenter.normalized;
 
-            playerRb.velocity = Vector3.zero;
+            playerRb.linearVelocity = Vector3.zero;
             playerRb.AddForce(escapeDirection * escapeForceMagnitude, ForceMode.Impulse);
             return;
         }
