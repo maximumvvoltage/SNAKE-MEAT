@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Standard
+  m_Name: Waterfall X
   m_Shader: {fileID: -6465566751694194690, guid: 8eef88ae773ef5f4dbe4da56da89303b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -107,12 +107,12 @@ Material:
     - _GradientRefractionScale: 10
     - _HorizonDistance: 78
     - _IntersectionFoamBlend: 1.09
-    - _IntersectionFoamCutoff: 10
-    - _IntersectionFoamDepth: 10
-    - _IntersectionFoamDirection: 10
-    - _IntersectionFoamFade: 10
-    - _IntersectionFoamSpeed: 10
-    - _IntersectionFoamTiling: 10
+    - _IntersectionFoamCutoff: 0
+    - _IntersectionFoamDepth: 0
+    - _IntersectionFoamDirection: 0
+    - _IntersectionFoamFade: 0
+    - _IntersectionFoamSpeed: 0
+    - _IntersectionFoamTiling: 0
     - _LightingHardness: 0.39
     - _LightingSmoothness: 12.34
     - _NormalScale: 1.61
@@ -133,10 +133,10 @@ Material:
     - _SecondaryFoamBlend: 0.06
     - _SkyboxForce: 2.5
     - _Steps: 50
-    - _SurfaceFoamDirection: 90
+    - _SurfaceFoamDirection: -0.78
     - _SurfaceFoamDistorsion: 0.38
-    - _SurfaceFoamSpeed: 0
-    - _SurfaceFoamTiling: 0.3
+    - _SurfaceFoamSpeed: 1
+    - _SurfaceFoamTiling: 0.53
     - _TileSize: 200
     - _WORLD_SPACE_UV: 1
     - _WaterAlpha: 1
@@ -152,7 +152,7 @@ Material:
     - _CaveOffset: {r: -0.45, g: 0, b: 0, a: 0}
     - _CaveScale: {r: 0.01, g: 0.01, b: 0, a: 0}
     - _CaveSecondaryColor: {r: 0, g: 0, b: 0, a: 0}
-    - _DeepColor: {r: 0, g: 0.29089952, b: 0.8553459, a: 1}
+    - _DeepColor: {r: 0, g: 0.3083496, b: 0.6037736, a: 1}
     - _FoamUVsOffset: {r: 1, g: 1, b: 0, a: 0}
     - _FresnelColor: {r: 2.670157, g: 2.670157, b: 2.670157, a: 0}
     - _HorizonColor: {r: 7.3772106, g: 3.6607668, b: 6.6577153, a: 1}
