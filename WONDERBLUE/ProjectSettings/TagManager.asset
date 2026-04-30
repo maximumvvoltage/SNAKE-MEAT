@@ -9,6 +9,7 @@ TagManager:
   - Water
   - Ring1
   - Ring2
+  - Air
   layers:
   - Default
   - TransparentFX
