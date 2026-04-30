@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Central coordinator. Attach to a persistent GameObject in your scene.
-/// Wire up all controllers in the Inspector.
-/// </summary>
 public class CutsceneController : MonoBehaviour
 {
     [Header("Controllers")]
