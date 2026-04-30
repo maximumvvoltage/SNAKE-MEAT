@@ -4,12 +4,12 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Dry
-  - Wet
-  - Water
   - Ring1
   - Ring2
   - Air
+  - Normal
+  - Fast
+  - Slow
   layers:
   - Default
   - TransparentFX
