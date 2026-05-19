@@ -28,7 +28,6 @@ public class PlayerV4 : MonoBehaviour
 
     [Header("Pause")]
     public float pauseCameraMoveSpeed = 3f;
-
     public GameObject pauseMenuObjects;
 
     private Rigidbody rb;
