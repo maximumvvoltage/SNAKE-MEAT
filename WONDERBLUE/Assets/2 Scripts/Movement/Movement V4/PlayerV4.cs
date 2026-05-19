@@ -1,16 +1,16 @@
 using UnityEngine;
 
-//[RequireComponent(typeof(Rigidbody))]
 public class PlayerV4 : MonoBehaviour
 {
-
     [Header("References")]
     public Transform cameraTransform;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public Transform pauseMenuTransform; // Assign in Inspector
 
     [Header("Movement")]
     public float walkSpeed = 3.5f;
+    public float jogSpeed = 8f;
     public float runSpeed = 7f;
     public float turnSmoothTime = 0.12f; 
 
@@ -23,24 +23,39 @@ public class PlayerV4 : MonoBehaviour
     public float cameraHeight = 2.2f;
     public float cameraFollowSpeed = 3f;
     public float cameraRotateSpeed = 2f;
-    public float autoCenterDelay   = 0.6f;
-    public float autoCenterSpeed   = 1.8f;
+    public float autoCenterDelay = 2f;
+    public float autoCenterSpeed = 1.8f;
+
+    [Header("Pause")]
+    public float pauseCameraMoveSpeed = 3f;
+
+    public GameObject pauseMenuObjects;
 
     private Rigidbody rb;
     private float turnSmoothVelocity;
-    private bool  isGrounded;
+    private bool isGrounded;
+    public bool isTeleporting;
     
-    private float camYaw;//horizontal angle of camera around player
-    private float camYawTarget;//where we want cammy to point
-    private float movingTimer;//how long its been since the player started moving
-    private bool autoCentering; // self explanatory </3
+    private float camYaw;
+    private float camYawTarget;
+    private float idleTimer;
+    private bool autoReturning;
+    private Animator shumAnim;
+
+    private bool isWalkToggled = false;
+    private bool wasRunning = false;
+
+    private bool isPaused = false;
+    private Vector3 prePausePosition;
+    private Quaternion prePauseRotation;
 
     void Start()
     {
+        shumAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
-        camYaw = transform.eulerAngles.y + 180f; // start yaw facing the same direction as shum
+        camYaw = transform.eulerAngles.y + 180f;
         camYawTarget = camYaw;
         
         Cursor.lockState = CursorLockMode.None;
@@ -49,72 +64,107 @@ public class PlayerV4 : MonoBehaviour
 
     void Update()
     {
-        CheckGrounded();
-        HandleJump();
-        HandleCamera();
+        HandlePause();
+
+        if (!isPaused)
+        {
+            CheckGrounded();
+            HandleJump();
+            HandleCamera();
+            HandleWalkToggle();
+            HandleMovement();
+        }
+        else
+        {
+            SlideCameraTo(pauseMenuTransform.position, pauseMenuTransform.rotation);
+        }
     }
 
-    void FixedUpdate()
+    // ─── PAUSE ───────────────────────────────────────────────────────────────────────
+
+    void HandlePause()
     {
-        HandleMovement();
+        if (!Input.GetKeyDown(KeyCode.Escape)) return;
+        pauseMenuObjects.SetActive(true);
+
+        isPaused = !isPaused;
+
+        if (isPaused)
+        {
+            prePausePosition = cameraTransform.position; //prepausee saves the cam's current transform position so that it
+            prePauseRotation = cameraTransform.rotation; // can move back into place upon unpausing
+            pauseMenuObjects.SetActive(true);
+        }
+        if (!isPaused)
+            pauseMenuObjects.SetActive(false);
     }
 
-    void LateUpdate()
+    void SlideCameraTo(Vector3 targetPos, Quaternion targetRot)
     {
-        // camera runs last so it reads the final player position this frame
-        
+        cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPos, pauseCameraMoveSpeed * Time.deltaTime);
+        cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, targetRot, pauseCameraMoveSpeed * Time.deltaTime);
     }
 
-    // ─── GROUND CHECK  ───────────────────────────────────────────────────────────────
+    // ───── GROUND CHECK ────────────────────────────────────────────────────────────────
 
     void CheckGrounded()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
     }
 
-    // ─── BASIC MOVEMENT ─────────────────────────────────────────────────────────────
+    // ─── WALK TOGGLE ─────────────────────────────────────────────────────────────────
+
+    void HandleWalkToggle()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+            isWalkToggled = !isWalkToggled;
+    }
+
+    // ─────── BASIC MOVEMENT ──────────────────────────────────────────────────────────────
 
     void HandleMovement()
     {
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         Vector3 input = new Vector3(h, 0f, v);
+        bool isMoving = input.magnitude > 0.1f;
+        bool isRunning = isMoving && Input.GetKey(KeyCode.LeftShift);
 
-        if (input.magnitude > 0.1f)
+        if (wasRunning && !isRunning)
+            isWalkToggled = false;
+        wasRunning = isRunning;
+
+        bool isWalking = isMoving && isWalkToggled && !isRunning;
+
+        shumAnim.SetBool("isWalking", isWalking);
+        shumAnim.SetBool("isJogging", isMoving && !isWalking && !isRunning);
+        shumAnim.SetBool("isRunning", isRunning);
+
+        if (isMoving)
         {
-            float cameraForwardYaw = camYaw - 180f; //no matter where the camera is pointed, its rotation will always be flipped, making it always behind uou 
+            float cameraForwardYaw = camYaw - 180f;
             Quaternion camRotation = Quaternion.Euler(0f, cameraForwardYaw, 0f);
-            Vector3 moveDir = (camRotation * input.normalized);
+            Vector3 moveDir = camRotation * input.normalized;
 
-            // smoothly rotates shum;s body to face the cam direction
             float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;
-            float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
+                turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
-            
-            bool running = Input.GetKey(KeyCode.LeftShift);
-            float speed = running ? runSpeed : walkSpeed;
-            Vector3 vel = moveDir * speed; 
+
+            float speed = isRunning ? runSpeed : isWalking ? walkSpeed : jogSpeed;
+            Vector3 vel = moveDir * speed;
             vel.y = rb.linearVelocity.y;
             rb.linearVelocity = vel;
-            
-            // accumulates time depending on how long you've been walking for. then, once the timer spills over the delay time, it begins to center itself
-            movingTimer += Time.fixedDeltaTime;
-            if (movingTimer >= autoCenterDelay)
-            {
-                autoCentering = true;
-                // with this, camera yaw target now becomes the new camera target, making it shift behind the playe
-                camYawTarget = transform.eulerAngles.y + 180f;
-            }
+
         }
         else
         {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x * 0.8f, rb.linearVelocity.y, rb.linearVelocity.z * 0.8f);
-            movingTimer = 0f;
-            autoCentering = false;
+            rb.linearVelocity =
+                new Vector3(rb.linearVelocity.x * 0.8f, rb.linearVelocity.y, rb.linearVelocity.z * 0.8f);
         }
     }
 
-    // ─── JUMPING ─────────────────────────────────────────────────────────────────
+    // ───── JUMPING ────────────────────────
 
     void HandleJump()
     {
@@ -125,30 +175,53 @@ public class PlayerV4 : MonoBehaviour
         }
     }
 
-    // ─── LAZY CAM ──────────────────────────────────────────────────────────
+    // ─── LAZY CAM ──────────────────────────────────────
 
+    // creating a lazy camera was very complicated and used advanced Quarternions so I used Claude code.
     void HandleCamera()
     {
         if (cameraTransform == null) return;
+        if (isTeleporting) return;
         
-        if (autoCentering)
-        { // this turns the cam yaw to face its direction at the centering speed that we like
+
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+        bool isMoving = new Vector3(h, 0f, v).magnitude > 0.1f;
+
+        if (isMoving)
+        {
+            // Reset idle timer and stop auto-return while moving
+            idleTimer = 0f;
+            autoReturning = false;
+        }
+        else
+        {
+            // Count up idle time, then snap back behind player
+            idleTimer += Time.deltaTime;
+            if (idleTimer >= autoCenterDelay)
+                autoReturning = true;
+        }
+
+        if (autoReturning)
+        {
+            camYawTarget = transform.eulerAngles.y + 180f;
             camYaw = Mathf.LerpAngle(camYaw, camYawTarget, autoCenterSpeed * Time.deltaTime);
         }
 
-
+        // Position camera behind player using current camYaw
         Quaternion yawRot = Quaternion.Euler(0f, camYaw, 0f);
         Vector3 orbitOffset = yawRot * new Vector3(0f, cameraHeight, cameraDistance);
         Vector3 desiredPos = transform.position + orbitOffset;
-        
+
         cameraTransform.position = Vector3.Lerp(cameraTransform.position, desiredPos, cameraFollowSpeed * Time.deltaTime);
-        
+
+        // Always look at the player
         Vector3 lookTarget = transform.position + Vector3.up * 1.2f;
         Quaternion desiredRot = Quaternion.LookRotation(lookTarget - cameraTransform.position);
         cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, desiredRot, cameraRotateSpeed * Time.deltaTime);
     }
 
-    // ─── gizmo ball at shum's feet ────────────────────────────────────────────────────────────────
+    // ─── GIZMO ───────────────────────────────────────────────────────────────────────
 
     void OnDrawGizmosSelected()
     {

@@ -11,6 +11,7 @@ public class DialogueManager : MonoBehaviour
 {
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialogueUI;
+    [SerializeField] private Animator dialogueUIanim;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI displayNameText;
     [SerializeField] private GameObject choicesContainer;
@@ -63,6 +64,8 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueIsPlaying = false;
         dialogueUI.SetActive(false);
+        dialogueUIanim = GetComponent<Animator>();
+        
         
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -132,6 +135,7 @@ public class DialogueManager : MonoBehaviour
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialogueUI.SetActive(true);
+        dialogueUIanim.SetTrigger("Show");
         showPortrait();
 
         if (player != null)
@@ -154,6 +158,8 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueIsPlaying = false;
         dialogueUI.SetActive(false);
+        //dialogueUIanim.SetTrigger("Hide");
+        
         hidePortrait();
         dialogueText.text = "";
         ClearChoices();
