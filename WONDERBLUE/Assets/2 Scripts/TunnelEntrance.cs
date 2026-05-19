@@ -3,6 +3,7 @@ using System.Collections;
 
 public class TunnelEntrance : MonoBehaviour
 {
+    // the EEEXACT same logic as Entrance, but tweaked stuff to include teleporting
     [Header("References")]
     public Transform playerTransform;
     public Transform cameraTransform;
@@ -37,7 +38,7 @@ public class TunnelEntrance : MonoBehaviour
         if (!isInTeleportMode) return;
 
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-            ShiftPreview(-1);
+            ShiftPreview(-1); // Shift Preview changes the ocussed position in the list of cam transforms. -1 is go back, 1 is go forward (in the list)
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             ShiftPreview(1);
 
