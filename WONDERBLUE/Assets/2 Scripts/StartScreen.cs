@@ -15,12 +15,15 @@ public class StartScreen : MonoBehaviour
     public AnimationClip betterWithSoundClip;
     
     public GameObject startMenuObjects;
-    private Vector3 startPosition;
-    private Quaternion startRotation;
+    private Vector3 normalPosition;
+    private Quaternion normalRotation;
     public float startCameraMoveSpeed;
 
     void Start()
     {
+        normalPosition = cameraTransform.position; //normal pos + rot saves the cam's current transform position so that it
+        normalRotation = cameraTransform.rotation; // can move back into place upon unpausing
+        
         renderer.color = Color.black;
         StartCoroutine(StartSequence());
         started = true;
@@ -50,14 +53,12 @@ public class StartScreen : MonoBehaviour
 
     public void HandleStart() //literally the exact same as HandlePause in player V4 but I was too lazy to optimize the code
     {
-        startMenuObjects.SetActive(true);
-
         started = !started;
-
+        
         if (started)
         {
-            cameraTransform.position = startPosition; //prepausee saves the cam's current transform position so that it
-            cameraTransform.rotation = startRotation;  // can move back into place upon unpausing
+            cameraTransform.position = startMenuTransform.position;
+            cameraTransform.rotation = startMenuTransform.rotation;  
             startMenuObjects.SetActive(true);
         }
         if (!started)
