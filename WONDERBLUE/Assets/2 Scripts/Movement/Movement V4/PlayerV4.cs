@@ -6,7 +6,7 @@ public class PlayerV4 : MonoBehaviour
     public Transform cameraTransform;
     public Transform groundCheck;
     public LayerMask groundLayer;
-    public Transform pauseMenuTransform; // Assign in Inspector
+    public Transform pauseMenuTransform;
 
     [Header("Movement")]
     public float walkSpeed = 3.5f;

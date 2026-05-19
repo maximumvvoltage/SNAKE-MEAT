@@ -7,6 +7,7 @@ public class StartScreen : MonoBehaviour
     [Header("References")]
     public RawImage renderer;
     public Transform cameraTransform;
+    public Transform startMenuTransform;
 
     [Header("Start Menu Objects")] 
     public bool started;
@@ -16,13 +17,16 @@ public class StartScreen : MonoBehaviour
     public GameObject startMenuObjects;
     private Vector3 startPosition;
     private Quaternion startRotation;
+    public float startCameraMoveSpeed;
 
     void Start()
     {
         renderer.color = Color.black;
         StartCoroutine(StartSequence());
         started = true;
+        SlideCameraTo(startMenuTransform.position, startMenuTransform.rotation);
         HandleStart();
+        
     }
 
     IEnumerator StartSequence()
@@ -59,6 +63,13 @@ public class StartScreen : MonoBehaviour
         if (!started)
             startMenuObjects.SetActive(false);
     }
+    
+    void SlideCameraTo(Vector3 targetPos, Quaternion targetRot)
+    {
+        cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPos, startCameraMoveSpeed * Time.deltaTime);
+        cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, targetRot, startCameraMoveSpeed * Time.deltaTime);
+    }
+
 
     public void NewGame()
     {
