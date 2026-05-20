@@ -28,12 +28,12 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Color normalChoiceColor = Color.white;
     [SerializeField] private Color highlightedChoiceColor = Color.yellow;
     public Story currentStory;
+    private const string speaker_tag = "speaker";
     
-    [Header("Portrait")]
+    /*[Header("Portrait")]
     [SerializeField] private GameObject portraitImage;
     [SerializeField] private Animator portraitAnim;
-    private const string speaker_tag = "speaker";
-    private const string portrait_tag = "portrait";
+    private const string portrait_tag = "portrait";*/
 
     public Stampcard stampcard;
     //public LostAndFound lostnfound;
@@ -136,7 +136,7 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = true;
         dialogueUI.SetActive(true);
         dialogueUIanim.SetTrigger("Show");
-        showPortrait();
+        //showPortrait();
 
         if (player != null)
         {
@@ -160,7 +160,7 @@ public class DialogueManager : MonoBehaviour
         dialogueUI.SetActive(false);
         //dialogueUIanim.SetTrigger("Hide");
         
-        hidePortrait();
+        //hidePortrait();
         dialogueText.text = "";
         ClearChoices();
 
@@ -279,10 +279,10 @@ public class DialogueManager : MonoBehaviour
                 case speaker_tag:
                     displayNameText.text = tagValue;
                     break;
-                case portrait_tag:
+                /*case portrait_tag:
                     Debug.Log("tagValue" + tagValue);
                     portraitAnim.Play(tagValue);
-                   break; 
+                   break;*/ 
                 default:
                     Debug.LogWarning("Tag isn't being used:" + tag);
                     break;
@@ -317,7 +317,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EnterDialogueModeWithAccuracy(TextAsset inkJSON, int accuracy)
     {
-        showPortrait();
+        //showPortrait();
 
         currentStory = new Story(inkJSON.text);
 
@@ -350,7 +350,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void SetEmotion(string emotion)
+    /*private void SetEmotion(string emotion)
     {
         if (portraitAnim == null) return;
 
@@ -370,5 +370,5 @@ public class DialogueManager : MonoBehaviour
         {
             portraitImage.SetActive(false);
         }
-    }
+    }*/
 }
