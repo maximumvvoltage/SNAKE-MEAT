@@ -6,7 +6,6 @@ public class PlayerV4 : MonoBehaviour
     public Transform cameraTransform;
     public Transform groundCheck;
     public LayerMask groundLayer;
-    public Transform pauseMenuTransform;
 
     [Header("Movement")]
     public float walkSpeed = 3.5f;
@@ -26,9 +25,16 @@ public class PlayerV4 : MonoBehaviour
     public float autoCenterDelay = 2f;
     public float autoCenterSpeed = 1.8f;
 
-    [Header("Pause")]
-    public float pauseCameraMoveSpeed = 3f;
+    [Header("Pause + Options")]
+    public Transform pauseMenuTransform;
+    public Transform optionsMenuTransform;
     public GameObject pauseMenuObjects;
+    public GameObject optionsMenuObjects;
+    private bool isPaused = false;
+    private bool isOptions;
+    public float pauseCameraMoveSpeed = 3f;
+    private Vector3 prePausePosition;
+    private Quaternion prePauseRotation;
 
     private Rigidbody rb;
     private float turnSmoothVelocity;
@@ -43,10 +49,6 @@ public class PlayerV4 : MonoBehaviour
 
     private bool isWalkToggled = false;
     private bool wasRunning = false;
-
-    private bool isPaused = false;
-    private Vector3 prePausePosition;
-    private Quaternion prePauseRotation;
 
     void Start()
     {
@@ -75,7 +77,7 @@ public class PlayerV4 : MonoBehaviour
         }
         else
         {
-            SlideCameraTo(pauseMenuTransform.position, pauseMenuTransform.rotation);
+            HandleOptions();
         }
     }
 
@@ -102,6 +104,25 @@ public class PlayerV4 : MonoBehaviour
     {
         cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPos, pauseCameraMoveSpeed * Time.deltaTime);
         cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, targetRot, pauseCameraMoveSpeed * Time.deltaTime);
+    }
+
+    public void HandleOptions()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+            isOptions = !isOptions;
+
+        if (isOptions)
+        {
+            SlideCameraTo(optionsMenuTransform.position, optionsMenuTransform.rotation);
+            pauseMenuObjects.SetActive(false);
+            optionsMenuObjects.SetActive(true);
+        }
+        else
+        {
+            SlideCameraTo(pauseMenuTransform.position, pauseMenuTransform.rotation);
+            pauseMenuObjects.SetActive(true);
+            optionsMenuObjects.SetActive(false); 
+        }
     }
 
     // ───── GROUND CHECK ────────────────────────────────────────────────────────────────

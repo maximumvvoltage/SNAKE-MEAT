@@ -13,8 +13,7 @@ public class InfoPanelScript : MonoBehaviour
 
     [Header("Slides")]
     public InfoSlide[] slides;
-
-    [Header("References")]
+    
     public GameObject bubble;
     public GameObject panel;
     public TextMeshProUGUI titleText;
@@ -22,21 +21,25 @@ public class InfoPanelScript : MonoBehaviour
     public TextMeshProUGUI counterText;
     public Button nextButton;
     public Button prevButton;
+    public Button doneButton;
 
     private bool playerInside = false;
     private int currentSlide = 0;
-
-    void Start()
-    {
-        nextButton.onClick.AddListener(NextSlide);
-        prevButton.onClick.AddListener(PrevSlide);
-    }
 
     void Update()
     {
         if (playerInside && Input.GetKeyDown(KeyCode.E))
         {
             currentSlide = 0;
+
+            doneButton.onClick.RemoveAllListeners();
+            doneButton.onClick.AddListener(OnDonePressed);
+            
+            nextButton.onClick.RemoveAllListeners();
+            prevButton.onClick.RemoveAllListeners();
+            nextButton.onClick.AddListener(NextSlide);
+            prevButton.onClick.AddListener(PrevSlide);
+
             UpdatePanel();
             panel.SetActive(true);
         }
@@ -83,9 +86,17 @@ public class InfoPanelScript : MonoBehaviour
     {
         titleText.text = slides[currentSlide].title;
         bodyText.text  = slides[currentSlide].body;
-        counterText.text = $"{currentSlide + 1} / {slides.Length}";
+        counterText.text = (currentSlide + 1) + " / " + (slides.Length);
 
         prevButton.interactable = currentSlide > 0;
-        nextButton.interactable = currentSlide < slides.Length - 1;
+
+        bool hasNext = currentSlide < slides.Length - 1;
+        nextButton.gameObject.SetActive(hasNext);
+        doneButton.gameObject.SetActive(!hasNext);
+    }
+
+    public void OnDonePressed()
+    {
+        panel.SetActive(false);
     }
 }
