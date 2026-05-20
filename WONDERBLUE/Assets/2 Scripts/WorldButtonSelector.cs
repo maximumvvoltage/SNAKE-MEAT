@@ -17,6 +17,11 @@ public class WorldButtonSelector : MonoBehaviour
     {
         switch (buttonName)
         {
+            case "NewGame":
+                playerV4.ReturnCameraToPlayer();
+                break;
+            case "LoadGame":
+                break;
             case "Options":
                 playerV4.HandleOptions();
                 break;

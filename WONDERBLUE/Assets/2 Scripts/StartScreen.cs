@@ -4,86 +4,50 @@ using System.Collections;
 
 public class StartScreen : MonoBehaviour
 {
-    [Header("References")]
-    public RawImage renderer;
-    public Transform cameraTransform;
-    public Transform startMenuTransform;
+    [Header("References")] public RawImage renderer;
+    public Transform startingCameraTransform;
+    private MusicManager musicManager;
+    private PlayerV4 playerV4;
 
-    [Header("Start Menu Objects")] 
-    public bool started;
+    [Header("Start Menu Objects")] public bool started;
     public GameObject betterWithSound;
     public AnimationClip betterWithSoundClip;
-    
+
     public GameObject startMenuObjects;
+    public Camera mainCamera;
     private Vector3 normalPosition;
     private Quaternion normalRotation;
     public float startCameraMoveSpeed;
 
     void Start()
     {
-        normalPosition = cameraTransform.position; //normal pos + rot saves the cam's current transform position so that it
-        normalRotation = cameraTransform.rotation; // can move back into place upon unpausing
-        
         renderer.color = Color.black;
         StartCoroutine(StartSequence());
-        SlideCameraTo(startMenuTransform.position, startMenuTransform.rotation);
-        HandleStart();
-        
+
+        started = true;
+        musicManager.PauseMusic(); //toggle locks it into pause mode
+        startMenuObjects.SetActive(true);
+        mainCamera.transform.position = startingCameraTransform.position;
+        mainCamera.transform.rotation = startingCameraTransform.rotation;
     }
 
     IEnumerator StartSequence()
     {
         betterWithSound.SetActive(true);
-        
         yield return new WaitForSeconds(betterWithSoundClip.length);
-
         betterWithSound.SetActive(false);
-        
-        started = true;
+
+        musicManager.PauseMusic(); //toggle unlocks it into play mode
+
         float elapsed = 0f;
         while (elapsed < 1f)
         {
             elapsed += Time.deltaTime;
-            renderer.color = Color.Lerp(Color.black, Color.white, elapsed); // thiss line makes the colour of the Renderer transition from black to white in 1 second (the elapsed time)
+            renderer.color = Color.Lerp(Color.black, Color.white, elapsed); // this makes the colour of the
+                                                                            // Renderer transition from black to white in 1 second (the elapsed time)
             yield return null;
         }
 
         renderer.color = Color.white;
-    }
-
-    public void HandleStart() //literally the exact same as HandlePause in player V4 but I was too lazy to optimize the code
-    {
-        //started = !started;
-        
-        if (started)
-        {
-            cameraTransform.position = startMenuTransform.position;
-            cameraTransform.rotation = startMenuTransform.rotation;  
-            startMenuObjects.SetActive(true);
-        }
-        if (!started)
-            startMenuObjects.SetActive(false);
-    }
-    
-    void SlideCameraTo(Vector3 targetPos, Quaternion targetRot)
-    {
-        cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPos, startCameraMoveSpeed * Time.deltaTime);
-        cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, targetRot, startCameraMoveSpeed * Time.deltaTime);
-    }
-
-
-    public void NewGame()
-    {
-        
-    }
-
-    public void LoadGame()
-    {
-        
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
     }
 }

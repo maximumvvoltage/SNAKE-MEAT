@@ -6,6 +6,7 @@ public class MusicManager : MonoBehaviour
     private static MusicManager instance;
     private AudioSource audioSource;
     public AudioClip musicClip;
+    private StartScreen startScreen;
 
     [Header("Volume Cels")]
     public GameObject[] cels;        // drag Cel, Cel(1)... Cel(9) in order
