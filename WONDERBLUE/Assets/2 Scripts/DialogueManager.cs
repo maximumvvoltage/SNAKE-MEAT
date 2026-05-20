@@ -76,7 +76,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialogueIsPlaying && player != null)
         {
-            playerMovement.enabled = false; //dont move (cause the player ended up sinking to 0,0,0 when they spoke to ANYONE no matter who)
+            playerMovement.isTeleporting = true;
             Cursor.lockState = CursorLockMode.None; //relock the cusor since the whole movement script gets disabled
         }
         
@@ -115,9 +115,8 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) //spacebar didn't work so i'm using jump
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
             if (currentStory.currentChoices.Count > 0) return;
             if (currentStory.canContinue)
             {
@@ -141,7 +140,7 @@ public class DialogueManager : MonoBehaviour
         if (player != null)
         {
             var move = player.GetComponent<ShumIsMoving>();
-            playerMovement.enabled = false;
+            playerMovement.isTeleporting = true;
             playerRigidbody.constraints = RigidbodyConstraints.FreezePosition; //if you'e talking to someone, freeze
         }
         if (currentStory.canContinue)
@@ -167,6 +166,7 @@ public class DialogueManager : MonoBehaviour
         if (player != null)
         {
             var move = player.GetComponent<ShumIsMoving>();
+            playerMovement.isTeleporting = false;
             playerMovement.enabled = true;
             playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation; // no longer speaking to them means you can move now
             
@@ -176,21 +176,18 @@ public class DialogueManager : MonoBehaviour
     private void ContinueStory()
     {
         ClearChoices();
+
         if (currentStory.canContinue)
         {
             dialogueText.text = currentStory.Continue();
-
             HandleTags(currentStory.currentTags);
 
-            DisplayChoices();
-        }
-        else if (currentStory.currentChoices.Count > 0)
-        {
-            DisplayChoices();
+            // if there are choices after continuing, display thembut don't exit — wait for player input
+            if (currentStory.currentChoices.Count > 0)
+                DisplayChoices();
         }
         else
         {
-            WaitForBeat();
             ExitDialogueMode();
         }
     }

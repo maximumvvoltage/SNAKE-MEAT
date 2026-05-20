@@ -1,14 +1,15 @@
-﻿Oh, Shum! You're back! #speaker:Mawiri #portrait:frog
+﻿Oh, Shum! You're back! #speaker:Mawiri #portrait:mawiri-talk
+Would you like a new stampcard?
 -> main
 
 === main ===
-+ [I'd like to see my stamp card!]
-	I'd like to see my stamp card, please! #speaker:Shum #portrait:shum-happy
-	One stamp card for the lady! #speaker:Mawiri #portrait:frog 
++ [Yes please!]
+	Yes please! #portrait:shum-talk
+	One stampcard for the lady! #portrait:mawiri-talk
 	#trigger:show_stampcard
-	Don't slip! #speaker:Mawiri #portrait:frog
+	You know how it works?
 	-> END
 
-+ [Goodbye!]
-	Don't slip! #speaker:Mawiri #portrait:frog
++ [I'm just exploring for now!]
+	Alright! #speaker:Mawiri
 	-> END

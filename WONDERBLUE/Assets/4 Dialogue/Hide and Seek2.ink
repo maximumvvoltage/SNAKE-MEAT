@@ -1,4 +1,4 @@
-﻿... #speaker:Literally the exact guy you're looking for #portrait:default
+﻿... #speaker:Literally the exact guy you're looking for
 -> main
 
 === main ===

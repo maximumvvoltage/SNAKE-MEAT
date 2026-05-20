@@ -5,9 +5,11 @@ public class PlayerV4 : MonoBehaviour
 {
     [Header("References")]
     public Transform cameraTransform;
+    public Transform talkingTransform;
     public Transform groundCheck;
     public LayerMask groundLayer;
     private WorldButtonSelector wbSelector;
+    public DialogueManager dialogueManager;
 
     [Header("Movement")]
     public float walkSpeed = 3.5f;
@@ -43,6 +45,7 @@ public class PlayerV4 : MonoBehaviour
     private bool isGrounded;
     public bool isTeleporting;
     
+    
     private float camYaw;
     private float camYawTarget;
     private float idleTimer;
@@ -76,6 +79,7 @@ public class PlayerV4 : MonoBehaviour
             HandleCamera();
             HandleWalkToggle();
             HandleMovement();
+            PeopleTalking();
         }
         else
         {
@@ -255,6 +259,20 @@ public class PlayerV4 : MonoBehaviour
         Vector3 lookTarget = transform.position + Vector3.up * 1.2f;
         Quaternion desiredRot = Quaternion.LookRotation(lookTarget - cameraTransform.position);
         cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, desiredRot, cameraRotateSpeed * Time.deltaTime);
+    }
+    
+    // ─── TALKING WITH PEOPLE ────────────────────────────────────────────────────────────────
+    void PeopleTalking()
+    {
+        if (dialogueManager.dialogueIsPlaying)
+        {
+            isTeleporting = true;
+            SlideCameraTo(talkingTransform.position, talkingTransform.rotation);
+        }
+        else
+        {
+            isTeleporting = false;
+        }
     }
 
     // ─── GIZMO ───────────────────────────────────────────────────────────────────────
