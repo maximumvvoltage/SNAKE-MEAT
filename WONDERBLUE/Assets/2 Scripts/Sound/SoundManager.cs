@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
@@ -9,8 +6,11 @@ public class SoundManager : MonoBehaviour
     
     public static AudioSource audioSource;
     private static AllSounds allSounds;
-    [SerializeField] private Slider soundSlider;
-    
+
+    [Header("Volume Cels")]
+    public GameObject[] cels;
+    private int activeCels = 0;
+// I GOT LAZY THIS LITERALLY USES THE EXACT SAME SYSTEM FOR MUSIC MANAGER
     private void Awake()
     {
         if (instance == null)
@@ -25,28 +25,50 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void Start()
+    {
+        foreach (GameObject cel in cels)
+            cel.SetActive(false);
+
+        for (int i = 0; i < 5; i++)
+            VolumeUp();
+    }
+
+    public void VolumeUp()
+    {
+        if (activeCels < cels.Length)
+        {
+            cels[activeCels].SetActive(true);
+            activeCels++;
+            UpdateVolume();
+        }
+    }
+
+    public void VolumeDown()
+    {
+        if (activeCels > 0)
+        {
+            activeCels--;
+            cels[activeCels].SetActive(false);
+            UpdateVolume();
+        }
+    }
+
+    void UpdateVolume()
+    {
+        audioSource.volume = activeCels / (float)cels.Length;
+    }
     
     public static void Play(string soundName)
     { 
         AudioClip audioClip = allSounds.GetRandomClip(soundName);
         if (audioSource != null)
-        {
             audioSource.PlayOneShot(audioClip);
-        }
     }
-
-    void Start()
-    {
-        soundSlider.onValueChanged.AddListener(delegate { OnValueChange(); } );
-    } 
     
     public static void SetVolume(float volume)
     {
         audioSource.volume = volume;
-    }
-
-    public void OnValueChange()
-    {
-        SetVolume(soundSlider.value);
     }
 }

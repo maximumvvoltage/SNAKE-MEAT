@@ -9,8 +9,6 @@ public class MusicManager : MonoBehaviour
 
     [Header("Volume Cels")]
     public GameObject[] cels;        // drag Cel, Cel(1)... Cel(9) in order
-    public Button plusButton;
-    public Button minusButton;
     private int activeCels = 0;
 
     [Header("Music Toggle")]
@@ -40,21 +38,14 @@ public class MusicManager : MonoBehaviour
 
         musicImageIcon.sprite = musicOn;
 
-        plusButton.onClick.AddListener(VolumeUp);
-        minusButton.onClick.AddListener(VolumeDown);
-
         UpdateVolume();
         
         for (int i = 0; i < 5; i++) // this basically reuses the existing VolumeUp logic so the
             VolumeUp();             // cels activate in order and activeCels are set to 5, making 50% volume from the start
                                     // so the player doesnt get blasted
-
-        
-        musicPaused = true; // DEBUG - remove when ready
-        audioSource.Pause();
     }
 
-    void VolumeUp()
+    public void VolumeUp()
     {
         if (activeCels < cels.Length)
         {
@@ -64,7 +55,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    void VolumeDown()
+    public void VolumeDown()
     {
         if (activeCels > 0)
         {
@@ -76,12 +67,7 @@ public class MusicManager : MonoBehaviour
 
     void UpdateVolume()
     {
-        // 1 cel = 10%, 10 cels = 100%
-        audioSource.volume = activeCels / (float)cels.Length;
-
-        // grey out buttons at limits
-        plusButton.interactable  = activeCels < cels.Length;
-        minusButton.interactable = activeCels > 0;
+        audioSource.volume = activeCels / (float)cels.Length;// 1 cel = 10%, 10 cels = 100%
     }
 
     public static void SetVolume(float volume)

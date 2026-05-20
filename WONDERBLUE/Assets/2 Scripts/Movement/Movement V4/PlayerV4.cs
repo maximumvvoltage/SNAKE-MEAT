@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerV4 : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class PlayerV4 : MonoBehaviour
     public Transform cameraTransform;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    private WorldButtonSelector wbSelector;
 
     [Header("Movement")]
     public float walkSpeed = 3.5f;
@@ -77,27 +79,35 @@ public class PlayerV4 : MonoBehaviour
         }
         else
         {
-            HandleOptions();
+            if (isOptions)
+                SlideCameraTo(optionsMenuTransform.position, optionsMenuTransform.rotation);
+            else
+                SlideCameraTo(pauseMenuTransform.position, pauseMenuTransform.rotation);
         }
     }
 
-    // ─── PAUSE ───────────────────────────────────────────────────────────────────────
+    // ─── PAUSE & OPTIONS───────────────────────────────────────────────────────────────────────
 
     void HandlePause()
     {
         if (!Input.GetKeyDown(KeyCode.Escape)) return;
-        pauseMenuObjects.SetActive(true);
 
         isPaused = !isPaused;
 
         if (isPaused)
         {
-            prePausePosition = cameraTransform.position; //prepausee saves the cam's current transform position so that it
-            prePauseRotation = cameraTransform.rotation; // can move back into place upon unpausing
+            prePausePosition = cameraTransform.position;
+            prePauseRotation = cameraTransform.rotation;
             pauseMenuObjects.SetActive(true);
+            optionsMenuObjects.SetActive(false);
+            isOptions = false;
         }
-        if (!isPaused)
+        else
+        {
             pauseMenuObjects.SetActive(false);
+            optionsMenuObjects.SetActive(false);
+            isOptions = false;
+        }
     }
 
     void SlideCameraTo(Vector3 targetPos, Quaternion targetRot)
@@ -108,21 +118,23 @@ public class PlayerV4 : MonoBehaviour
 
     public void HandleOptions()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-            isOptions = !isOptions;
+        isOptions = !isOptions;
 
         if (isOptions)
         {
-            SlideCameraTo(optionsMenuTransform.position, optionsMenuTransform.rotation);
             pauseMenuObjects.SetActive(false);
             optionsMenuObjects.SetActive(true);
         }
         else
         {
-            SlideCameraTo(pauseMenuTransform.position, pauseMenuTransform.rotation);
             pauseMenuObjects.SetActive(true);
-            optionsMenuObjects.SetActive(false); 
+            optionsMenuObjects.SetActive(false);
         }
+    }
+    
+    public void ResetScene() 
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); //reloads the currently active scene. thank you reddit.com
     }
 
     // ───── GROUND CHECK ────────────────────────────────────────────────────────────────

@@ -1,0 +1,30 @@
+﻿No dude, like- he's actually just gone. #speaker:Firey Guy Guy #portrait:Default
+-> main
+
+=== main ===
++ [What's up!]
+	Whatcha talking about? #speaker:Shum #portrait:shum
+	This loser is a master at hiding, that's what's up! #speaker:Firey Guy #portrait:Default
+	This place is huge so we tried playing hide and seek like we were kids again.. #speaker: Middle Part
+	But the guy's gone missing, and now he's freaking out. #speaker: Pink Ponytail
+	I don't 'freak out'! I'm chill!! #speaker:Firey Guy Guy
+	-> dilemma
+
++ [Who's gone?]
+	Sighs...
+	-> END
+
+=== dilemma ===
++ [I'll find him!]
+	Gimme one of your stamps and consider him found! #speaker:Shum #portrait:shum-happy
+	Really?! You'd do that? #speaker:Firey Guy Guy #portrait: Default
+	(Dude, that's cheating.) #speaker:Middle Part
+	Ignore him- If you could find him it'll be a Goooodsend! #speaker: Pretty Girl
+	He's got a pink buzzcut and black swimming goggles. #speaker: Pretty Girl
+	On it! #speaker:Shum #portrait:shum-happy
+	-> END
+
++ [Good luck]
+	Good luck with him! #speaker:Shum #portrait:shum-happy
+	Hah, Thanks. #speaker: Pretty Girl
+	-> END

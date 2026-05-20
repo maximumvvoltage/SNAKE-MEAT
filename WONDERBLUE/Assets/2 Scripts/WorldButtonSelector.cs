@@ -1,26 +1,43 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class WorldButtons : MonoBehaviour //confusing naming conventions: THIS IS THE MOTHER SCRIPT THAT HANDLES RAYCASTING
+public class WorldButtonSelector : MonoBehaviour
 {
-    public Camera mainCamera;
+    public string buttonName;
     private PlayerV4 playerV4;
+    private MusicManager musicManager;
+    private SoundManager sfxManager;
 
     void Start()
     {
         playerV4 = FindFirstObjectByType<PlayerV4>();
     }
 
-    void Update()
+    public void OnClick(PlayerV4 playerV4)
     {
-        if (Input.GetMouseButtonDown(0))
+        switch (buttonName)
         {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                WorldButtonSelector button = hit.collider.GetComponent<WorldButtonSelector>();
-                if (button != null)
-                    button.OnClick(playerV4);
-            }
+            case "Options":
+                playerV4.HandleOptions();
+                break;
+            case "Reset":
+                playerV4.ResetScene();
+                break;
+            case "Quit":
+                Application.Quit();
+                break;
+            case "+VolumeMusic":
+                FindFirstObjectByType<MusicManager>().VolumeUp();
+                break;
+            case "-VolumeMusic":
+                FindFirstObjectByType<MusicManager>().VolumeDown();
+                break;
+            case "+VolumeSFX":
+                FindFirstObjectByType<SoundManager>().VolumeUp();
+                break;
+            case "-VolumeSFX":
+                FindFirstObjectByType<SoundManager>().VolumeDown();
+                break;
         }
     }
 }

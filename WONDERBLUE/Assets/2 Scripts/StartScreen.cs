@@ -26,7 +26,6 @@ public class StartScreen : MonoBehaviour
         
         renderer.color = Color.black;
         StartCoroutine(StartSequence());
-        started = true;
         SlideCameraTo(startMenuTransform.position, startMenuTransform.rotation);
         HandleStart();
         
@@ -39,7 +38,8 @@ public class StartScreen : MonoBehaviour
         yield return new WaitForSeconds(betterWithSoundClip.length);
 
         betterWithSound.SetActive(false);
-
+        
+        started = true;
         float elapsed = 0f;
         while (elapsed < 1f)
         {
@@ -53,7 +53,7 @@ public class StartScreen : MonoBehaviour
 
     public void HandleStart() //literally the exact same as HandlePause in player V4 but I was too lazy to optimize the code
     {
-        started = !started;
+        //started = !started;
         
         if (started)
         {
