@@ -7,6 +7,8 @@ public class EnterTrigger : MonoBehaviour
     public Transform playerTransform;
     public Transform cameraTransform;
     public PlayerV4 playerController;
+    public GeneralThings generalThings;
+    public ErrandManager errandManager;
 
     [Header("Area Settings")]
     public string areaName;
@@ -16,7 +18,7 @@ public class EnterTrigger : MonoBehaviour
 
     [Header("Settings")]
     public float cameraFlySpeed = 3f;
-
+    
     private bool isEntered = false;
 
     void Update()
@@ -52,6 +54,17 @@ public class EnterTrigger : MonoBehaviour
 
     public void OnGoPressed()
     {
-        Debug.Log("Player entered: " + areaName);
+        if (!generalThings.stampcardAttained)
+        {
+            if (areaName == "Tickets")
+                generalThings.EnterStore();
+        }
+
+        if (generalThings.stampcardAttained)
+        {
+            if (areaName == "Tickets")
+                errandManager.OpenStampcard();
+        }
+        
     }
 }
