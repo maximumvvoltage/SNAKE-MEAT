@@ -5,65 +5,90 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-	[SerializeField] private DialogueManager dialogueManager;
-	[Header("Visual Cue")]
-	[SerializeField] private GameObject visualCue = null;
+    [SerializeField] private DialogueManager dialogueManager;
+    [Header("Visual Cue")]
+    [SerializeField] private GameObject visualCue = null;
 
-	[Header("Ink")]
-	[SerializeField] private TextAsset inkJSON;
+    [Header("Ink")]
+    [SerializeField] private TextAsset inkJSON;
 
-	[SerializeField] private bool isInRange = false;
-	private bool hasPlayed = false;
+    [Header("Errand")]
+    public string errandName;
 
-	void Start()
-	{
-		if (visualCue != null) visualCue.SetActive(false);
-	}
+    [Header("Sequence")]
+    public DialogueTrigger nextDialogue;
 
-	void Update()
-	{
-		if (visualCue != null)
-		{
-			if (isInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
-			{
-				visualCue.SetActive(true);
+    [SerializeField] private bool isInRange = false;
+    private bool hasPlayed = false;
 
-				if (Input.GetKeyDown(KeyCode.E))
-				{
-					DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
-					hasPlayed = true;
-					visualCue.SetActive(false);
-				}
-			}
-			else
-			{
-				visualCue.SetActive(false);
-			}
-		}
-		else
-		{
-			if (isInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
-			{
-				DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
-				hasPlayed = true;
-			}
-		}
-	}
+    void Start()
+    {
+       if (visualCue != null) visualCue.SetActive(false);
+    }
 
-	private void OnTriggerEnter(Collider other)
-	{
-		if (other.CompareTag("Player"))
-		{
-			isInRange = true;
-			Debug.Log("Player in range");
-		}
-	}
+    void Update()
+    {
+       if (visualCue != null)
+       {
+          if (isInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
+          {
+             visualCue.SetActive(true);
 
-	private void OnTriggerExit(Collider other)
-	{
-		if (other.CompareTag("Player"))
-		{
-			isInRange = false;
-		}
-	}
+             if (Input.GetKeyDown(KeyCode.E))
+             {
+                DialogueManager.GetInstance().EnterDialogueMode(inkJSON, this.gameObject);
+                
+                if (!string.IsNullOrEmpty(errandName))
+                    ErrandManager.instance.RegisterTrigger(errandName, this.gameObject);
+                
+                hasPlayed = true;
+                visualCue.SetActive(false);
+
+                if (nextDialogue != null)
+                {
+                    nextDialogue.enabled = true;
+                    this.enabled = false;
+                }
+             }
+          }
+          else
+          {
+             visualCue.SetActive(false);
+          }
+       }
+       else
+       {
+          if (isInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
+          {
+             DialogueManager.GetInstance().EnterDialogueMode(inkJSON, this.gameObject);
+
+             if (!string.IsNullOrEmpty(errandName))
+                 ErrandManager.instance.RegisterTrigger(errandName, this.gameObject);
+
+             hasPlayed = true;
+
+             if (nextDialogue != null)
+             {
+                 nextDialogue.enabled = true;
+                 this.enabled = false;
+             }
+          }
+       }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+       if (other.CompareTag("Player"))
+       {
+          isInRange = true;
+       }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+       if (other.CompareTag("Player"))
+       {
+          isInRange = false;
+       }
+    }
 }

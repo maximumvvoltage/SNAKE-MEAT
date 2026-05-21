@@ -35,8 +35,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Animator portraitAnim;
     private const string portrait_tag = "portrait";*/
 
-    public Stampcard stampcard;
-    //public LostAndFound lostnfound;
+    public ErrandManager errandManager;
+    private GameObject currentNPCTrigger;
 
     public bool dialogueIsPlaying { get; private set; }
 
@@ -129,8 +129,10 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void EnterDialogueMode(TextAsset inkJSON)
+    public void EnterDialogueMode(TextAsset inkJSON, GameObject npcTrigger)
     {
+        currentNPCTrigger = npcTrigger;
+        
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialogueUI.SetActive(true);
@@ -263,42 +265,52 @@ public class DialogueManager : MonoBehaviour
         foreach (string tag in currentTags)
         {
             string[] splitTag = tag.Split(':');
-            if (splitTag.Length != 2)
-            {
-                Debug.LogError("There's an issue with the tag");
-            }
-
             string tagKey = splitTag[0].Trim();
-            string tagValue = splitTag[1].Trim();
+            string tagValue = splitTag.Length > 1 ? splitTag[1].Trim() : "";
 
             switch (tagKey)
             {
-                case speaker_tag:
+                case "speaker":
                     displayNameText.text = tagValue;
                     break;
-                /*case portrait_tag:
-                    Debug.Log("tagValue" + tagValue);
-                    portraitAnim.Play(tagValue);
-                   break;*/ 
-                default:
-                    Debug.LogWarning("Tag isn't being used:" + tag);
+                case "trigger":
+                    HandleTriggerTag(tagValue);
                     break;
-                
+                default:
+                    Debug.LogWarning("Tag isn't being used: " + tag);
+                    break;
             }
-            
-            if (tag == "trigger:show_stampcard") 
-            {
-                stampcard.ShowStampCard();
-            }
-            if (tag == "trigger:hide_stampcard") 
-            {
-                stampcard.HideStampCard();
-            }
-            
-            if (tag == "trigger:show_lost-and-found") 
-            {
-                //lostnfound.ShowLostAndFound();
-            }
+        }
+    }
+
+    private void HandleTriggerTag(string triggerValue)
+    {
+        switch (triggerValue)
+        {
+            case "show_stampcard":
+                errandManager.OpenStampcard();
+                break;
+            case "hide_stampcard":
+                errandManager.CloseStampcard();
+                break;
+            case "register_1":
+                ErrandManager.instance.RegisterTrigger("Hide and Seek", currentNPCTrigger);
+                break;
+            case "register_2":
+                ErrandManager.instance.RegisterTrigger("Ridin' Waves", currentNPCTrigger);
+                break;
+            case "register_3":
+                ErrandManager.instance.RegisterTrigger("Nice Perm!", currentNPCTrigger);
+                break;
+            case "register_4":
+                ErrandManager.instance.RegisterTrigger("Impressed?", currentNPCTrigger);
+                break;
+            case "register_5":
+                ErrandManager.instance.RegisterTrigger("Big Fall", currentNPCTrigger);
+                break;
+            default:
+                Debug.LogWarning("Unknown trigger tag: " + triggerValue);
+                break;
         }
     }
     

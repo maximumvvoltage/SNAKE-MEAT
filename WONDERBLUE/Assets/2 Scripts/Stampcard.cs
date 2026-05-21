@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Stampcard : MonoBehaviour
+/*public class Stampcard : MonoBehaviour
 { 
     //STAMPCARD IS PURELY VISUAL; IT HANDLES THE PARENT OF THE BUTTONS, AND CONTROLLING WHEN THE MENU SHOULD BE SHOWN AND HIDDEN.
     
@@ -23,7 +23,8 @@ public class Stampcard : MonoBehaviour
     [Header("Text Assets")]
     public TextMeshProUGUI locationName;
     public TextMeshProUGUI locationDesc;
-    public TextMeshProUGUI stampcardInfo;
+    public TextMeshProUGUI infoBody;
+    public TextMeshProUGUI infoTagline;
     
     public bool questComplete;
     public StampStatus stampStatus = StampStatus.Started; //even if the stamp hasn't started yet, the button will start 
@@ -106,11 +107,11 @@ public class Stampcard : MonoBehaviour
         //if (stampButton.stampComplete)
          //   return;
 
-        stampcardInfo.text = stampButton.questSO.questDescription;
+        infoBody.text = stampButton.questSO.questDescription;
+        infoTagline.text = stampButton.questSO.questName;
 
         switch (stampStatus)
         {
-                
             case StampStatus.Started:
                 
                 stampStatus = StampStatus.Started;
@@ -119,7 +120,7 @@ public class Stampcard : MonoBehaviour
 
                 locationName.text = stampButton.questSO.questName; //the location name 
                 locationDesc.text = stampButton.questSO.questDescription;
-                stampcardInfo.text = stampButton.questSO.questDescription;
+                infoBody.text = stampButton.questSO.questDescription;
                 
                 ShowQuestObjects();
                 StampButton.InvokeOnStampActivated(stampButton);
@@ -147,4 +148,4 @@ public class Stampcard : MonoBehaviour
                 break;
         }
     }
-}
+}*/

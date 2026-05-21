@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class QuestArea : MonoBehaviour
+/*public class QuestArea : MonoBehaviour
 {
     [SerializeField] private StampButton linkedStamp; // drag the specific StampButton here
     [SerializeField] private Stampcard stampcard;
@@ -22,7 +22,7 @@ public class QuestArea : MonoBehaviour
 
     private void Update()
     {
-        if (playerInside && Input.anyKeyDown)
+        if (playerInside && Input.GetKeyDown(KeyCode.E))
         {
             CompleteQuest();
         }
@@ -39,4 +39,4 @@ public class QuestArea : MonoBehaviour
         stampcard.stampStatus = Stampcard.StampStatus.Claimable;
         stampcard.AmendQuest(); // THIS whichforces an immediate visual update. took a long ass while to figure out
     }
-}
+}*/

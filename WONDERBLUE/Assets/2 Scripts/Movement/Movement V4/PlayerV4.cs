@@ -119,6 +119,7 @@ public class PlayerV4 : MonoBehaviour
         cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetPos, pauseCameraMoveSpeed * Time.deltaTime);
         cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, targetRot, pauseCameraMoveSpeed * Time.deltaTime);
     }
+    
     public void ReturnCameraToPlayer()
     {
         SlideCameraTo(prePausePosition, prePauseRotation);

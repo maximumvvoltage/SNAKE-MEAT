@@ -26,6 +26,7 @@
 	Ignore him! If you could find him it'll be a godsend! #speaker: Pink Ponytail
 	He's got a pink buzzcut and black swimming goggles. #speaker: Pink Ponytail
 	On it! #speaker:Shum
+	#trigger:register_1
 	-> END
 
 + [Good luck]
