@@ -54,17 +54,18 @@ public class EnterTrigger : MonoBehaviour
 
     public void OnGoPressed()
     {
-        if (!generalThings.stampcardAttained)
-        {
-            if (areaName == "Tickets")
-                generalThings.EnterStore();
-        }
+        if (areaName == "Tickets")
+            ShopEnter();
+        
+    }
 
-        if (generalThings.stampcardAttained)
-        {
-            if (areaName == "Tickets")
-                errandManager.OpenStampcard();
-        }
+    public void ShopEnter()
+    {
+        if (!generalThings.stampcardAttained)
+            generalThings.EnterStore();
+        
+        if (generalThings.stampcardAttained) 
+            errandManager.OpenStampcard();
         
     }
 }

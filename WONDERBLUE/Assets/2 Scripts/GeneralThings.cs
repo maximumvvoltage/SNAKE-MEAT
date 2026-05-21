@@ -4,12 +4,13 @@ public class GeneralThings : MonoBehaviour
 {
     public GameObject stampcardButton;
     public GameObject youGotThing;
-    public bool stampcardAttained = false;
+    public bool stampcardAttained;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        stampcardAttained = false;
+        youGotThing.SetActive(false);
     }
 
     // Update is called once per frame
