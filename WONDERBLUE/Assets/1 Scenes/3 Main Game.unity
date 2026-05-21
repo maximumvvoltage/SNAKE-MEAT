@@ -3182,7 +3182,8 @@ MonoBehaviour:
   playerTransform: {fileID: 2377347593163154767}
   cameraTransform: {fileID: 392386576}
   playerController: {fileID: 6751389664161986532}
-  generalThings: {fileID: 0}
+  generalThings: {fileID: 787902874}
+  errandManager: {fileID: 229924546}
   areaName: Entererd sub
   previewPoint: {fileID: 1212613299}
   enterUI: {fileID: 1947335864}
@@ -21434,6 +21435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   stampcardButton: {fileID: 141146806}
   youGotThing: {fileID: 499754406}
+  stampcardAttained: 0
 --- !u!1 &790056070
 GameObject:
   m_ObjectHideFlags: 0
@@ -22292,7 +22294,8 @@ MonoBehaviour:
   playerTransform: {fileID: 2377347593163154767}
   cameraTransform: {fileID: 392386576}
   playerController: {fileID: 6751389664161986532}
-  generalThings: {fileID: 0}
+  generalThings: {fileID: 787902874}
+  errandManager: {fileID: 229924546}
   areaName: entered Tickets
   previewPoint: {fileID: 1533067141}
   enterUI: {fileID: 1947335864}
@@ -24317,7 +24320,8 @@ MonoBehaviour:
   playerTransform: {fileID: 2377347593163154767}
   cameraTransform: {fileID: 392386576}
   playerController: {fileID: 6751389664161986532}
-  generalThings: {fileID: 0}
+  generalThings: {fileID: 787902874}
+  errandManager: {fileID: 229924546}
   areaName: Gladiator entered (BLUE)
   previewPoint: {fileID: 2127664041}
   enterUI: {fileID: 1947335864}
@@ -30131,7 +30135,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1126518094}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 825049293}
+        m_TargetAssemblyTypeName: EnterTrigger, Assembly-CSharp
+        m_MethodName: OnGoPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1126518094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30696,7 +30712,8 @@ MonoBehaviour:
   playerTransform: {fileID: 2377347593163154767}
   cameraTransform: {fileID: 392386576}
   playerController: {fileID: 6751389664161986532}
-  generalThings: {fileID: 0}
+  generalThings: {fileID: 787902874}
+  errandManager: {fileID: 229924546}
   areaName: Entered Pearl Diver
   previewPoint: {fileID: 369432738}
   enterUI: {fileID: 1947335864}
@@ -34985,7 +35002,8 @@ MonoBehaviour:
   playerTransform: {fileID: 2377347593163154767}
   cameraTransform: {fileID: 392386576}
   playerController: {fileID: 6751389664161986532}
-  generalThings: {fileID: 0}
+  generalThings: {fileID: 787902874}
+  errandManager: {fileID: 229924546}
   areaName: entered kraken
   previewPoint: {fileID: 867061971}
   enterUI: {fileID: 1947335864}
@@ -40097,7 +40115,8 @@ MonoBehaviour:
   playerTransform: {fileID: 2377347593163154767}
   cameraTransform: {fileID: 392386576}
   playerController: {fileID: 6751389664161986532}
-  generalThings: {fileID: 0}
+  generalThings: {fileID: 787902874}
+  errandManager: {fileID: 229924546}
   areaName: Entered Carp
   previewPoint: {fileID: 1084849510}
   enterUI: {fileID: 1947335864}
@@ -43855,7 +43874,8 @@ MonoBehaviour:
   playerTransform: {fileID: 2377347593163154767}
   cameraTransform: {fileID: 392386576}
   playerController: {fileID: 6751389664161986532}
-  generalThings: {fileID: 0}
+  generalThings: {fileID: 787902874}
+  errandManager: {fileID: 229924546}
   areaName: Gladiator entered (RED)
   previewPoint: {fileID: 1608666520}
   enterUI: {fileID: 1947335864}
