@@ -34,7 +34,7 @@ public class EnterTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isEntered = true;
-            playerController.isTeleporting = true;
+            //playerController.isTeleporting = true;
             enterUI.SetActive(true);
 
             go.onClick.RemoveAllListeners();
@@ -47,7 +47,7 @@ public class EnterTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isEntered = false;
-            playerController.isTeleporting = false;
+            //playerController.isTeleporting = false;
             enterUI.SetActive(false);
         }
     }

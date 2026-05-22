@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,7 +36,7 @@ public class MusicManager : MonoBehaviour
     void Start()
     {
         if (musicClip != null)
-            PlayBGM(false, musicClip);
+            StartCoroutine(Wait());
 
         musicImageIcon.sprite = musicOn;
 
@@ -102,5 +103,11 @@ public class MusicManager : MonoBehaviour
             musicImageIcon.sprite = musicOn;
             audioSource.UnPause();
         }
+    }
+    
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(5);
+        PlayBGM(false, musicClip);
     }
 }

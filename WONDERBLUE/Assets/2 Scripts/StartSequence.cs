@@ -15,7 +15,6 @@ public class StartSequence : MonoBehaviour
 
     void Start()
     {
-        musicManager.PauseMusic(); // toggles music off
         renderer.color = Color.black;
         StartCoroutine(Sequence());
     }
@@ -23,10 +22,11 @@ public class StartSequence : MonoBehaviour
     IEnumerator Sequence()
     {
         betterWithSound.SetActive(true);
-        yield return new WaitForSeconds(betterWithSoundClip.length);
+        yield return new WaitForSeconds(5);
+        
         betterWithSound.SetActive(false);
+        musicManager.PauseMusic(); //since game starts with music off, this toggles music on
 
-        musicManager.PauseMusic(); // toggles music on
 
         float elapsed = 0f;
         while (elapsed < 1f)

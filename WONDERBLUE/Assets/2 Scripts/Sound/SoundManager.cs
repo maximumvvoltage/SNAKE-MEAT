@@ -33,6 +33,8 @@ public class SoundManager : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
             VolumeUp();
+        
+        audioSource.volume = 100;
     }
 
     public void VolumeUp()
