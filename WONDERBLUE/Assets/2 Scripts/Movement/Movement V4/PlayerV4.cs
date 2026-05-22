@@ -54,6 +54,7 @@ public class PlayerV4 : MonoBehaviour
 
     private bool isWalkToggled = false;
     private bool wasRunning = false;
+    private bool isTalking = false;
 
     void Start()
     {
@@ -267,11 +268,13 @@ public class PlayerV4 : MonoBehaviour
     {
         if (dialogueManager.dialogueIsPlaying)
         {
+            isTalking = true;
             isTeleporting = true;
             SlideCameraTo(talkingTransform.position, talkingTransform.rotation);
         }
-        else
+        else if (isTalking) // only release isTeleporting if WE set it
         {
+            isTalking = false;
             isTeleporting = false;
         }
     }

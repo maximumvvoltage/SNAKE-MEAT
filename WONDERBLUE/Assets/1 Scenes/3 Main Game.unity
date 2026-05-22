@@ -11381,11 +11381,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6fc547d5caf7146b8be0db98e94443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duck: {fileID: 0}
-  needleText: {fileID: 1580516607}
-  player: {fileID: 0}
-  rotationSpeed: 20
-  currentWaypoint: {fileID: 0}
 --- !u!1 &392386572
 GameObject:
   m_ObjectHideFlags: 0
@@ -14448,8 +14443,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 153.7967, y: -143.55998}
-  m_SizeDelta: {x: 573.6114, y: 100.136}
+  m_AnchoredPosition: {x: 145.84808, y: -147.5383}
+  m_SizeDelta: {x: 558.4136, y: 95.0214}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &488030031
 MonoBehaviour:
@@ -21394,13 +21389,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 787902869}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11d9052f054c51047bfca5eed2d856d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
   renderer: {fileID: 1273641137}
   startingCameraTransform: {fileID: 1145700275}
+  musicManager: {fileID: 290486621}
   started: 0
   betterWithSound: {fileID: 1454441371}
   betterWithSoundClip: {fileID: 7400000, guid: 2544257c25b486c4a9bce466e34af57f, type: 2}
@@ -22296,7 +22292,7 @@ MonoBehaviour:
   playerController: {fileID: 6751389664161986532}
   generalThings: {fileID: 787902874}
   errandManager: {fileID: 229924546}
-  areaName: entered Tickets
+  areaName: Tickets
   previewPoint: {fileID: 1533067141}
   enterUI: {fileID: 1947335864}
   go: {fileID: 1126518093}
@@ -23113,7 +23109,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: I love stamps..... They make me... Sooooo happy.....
+  m_text: ' '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -23140,7 +23136,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 62.15
+  m_fontSize: 72
   m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -37261,7 +37257,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1454441372
 RectTransform:
   m_ObjectHideFlags: 0
@@ -40301,7 +40297,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -15}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 393, y: -25}
+  m_AnchoredPosition: {x: 430, y: -14}
   m_SizeDelta: {x: 278.79004, y: 52.27339}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1565871714
@@ -45992,7 +45988,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TITLE
+  m_text: YOUR STAMPS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -46019,7 +46015,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 63.05
   m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -49396,10 +49392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78210959d742e24d8fdfcf61174fdd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linkedStamp: {fileID: 0}
-  stampcard: {fileID: 0}
-  questCompleted: 0
-  playerInside: 0
 --- !u!1 &1947335864
 GameObject:
   m_ObjectHideFlags: 0
@@ -53502,10 +53494,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78210959d742e24d8fdfcf61174fdd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linkedStamp: {fileID: 0}
-  stampcard: {fileID: 0}
-  questCompleted: 0
-  playerInside: 0
 --- !u!65 &2075821648
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -67686,8 +67674,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2eff09d91ba6104ba864ed2c8bfac86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ring1Speed: 10
-  ring2Speed: 3
 --- !u!1 &3117807043210867271
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 public class GeneralThings : MonoBehaviour
 {
     public GameObject stampcardButton;
+    private ErrandManager errandManager;
     public GameObject youGotThing;
     public bool stampcardAttained;
     
@@ -24,10 +25,13 @@ public class GeneralThings : MonoBehaviour
         stampcardButton.SetActive(true);
         youGotThing.SetActive(false);
         stampcardAttained = true;
+        Debug.Log("attained!");
     }
 
-    public void EnterStore()
+    public void YouGotThing() 
     {
         youGotThing.SetActive(true);
+        // this can't be in EnterTrigger with the other ticket shop stuff because
+        // i would have to assign youGotThing to EVERY SINGLE instance of the stampcard obtaining screen. 
     }
 }

@@ -101,14 +101,18 @@ public class TunnelEntrance : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             playerInside = true;
             bubble.SetActive(true);
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             playerInside = false;
             bubble.SetActive(false);
+        }
     }
 }

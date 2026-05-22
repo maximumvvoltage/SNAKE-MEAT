@@ -56,16 +56,20 @@ public class EnterTrigger : MonoBehaviour
     {
         if (areaName == "Tickets")
             ShopEnter();
-        
     }
 
     public void ShopEnter()
     {
         if (!generalThings.stampcardAttained)
-            generalThings.EnterStore();
-        
-        if (generalThings.stampcardAttained) 
+        {
+            generalThings.YouGotThing();
+            enterUI.SetActive(false);
+        }
+
+        if (generalThings.stampcardAttained)
+        {
             errandManager.OpenStampcard();
-        
+            enterUI.SetActive(false);
+        }
     }
 }

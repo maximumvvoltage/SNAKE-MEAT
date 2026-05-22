@@ -7,6 +7,7 @@ public class WorldButtonSelector : MonoBehaviour
     private PlayerV4 playerV4;
     private MusicManager musicManager;
     private SoundManager sfxManager;
+    public StartScreen startScreen;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class WorldButtonSelector : MonoBehaviour
         {
             case "NewGame":
                 playerV4.ReturnCameraToPlayer();
+                startScreen.HandleStart();
                 break;
             case "LoadGame":
                 break;
