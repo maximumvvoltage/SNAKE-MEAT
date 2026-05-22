@@ -1,75 +1,52 @@
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 
 public class StartScreen : MonoBehaviour
 {
-    [Header("References")]
-    public RawImage renderer;
-    public MusicManager musicManager;
     public PlayerV4 playerV4;
-    public Camera mainCamera;
-    
+    public bool startMenu;
 
-    [Header("Start Menu")]
-    public Transform startMenuTransform;
+    public Transform startTransform;
+    public Transform optionsMenuTransform;
+
     public GameObject startMenuObjects;
-
-    [Header("Intro Sequence")]
-    public GameObject betterWithSound;
-    public AnimationClip betterWithSoundClip;
+    public GameObject optionsMenuObjects;
 
     void Start()
     {
-        renderer.color = Color.black;
-        
-        musicManager.PauseMusic();
+        startMenu = true;
+        playerV4.isTeleporting = true;
+        playerV4.isOptions = false;
         startMenuObjects.SetActive(true);
-
-        StartCoroutine(StartSequence());
+        optionsMenuObjects.SetActive(false);
     }
 
     void Update()
     {
-        if (playerV4.isTeleporting)
+        if (!startMenu) return;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            mainCamera.transform.position = startMenuTransform.position;//makes the cam face the start position
-            mainCamera.transform.rotation = startMenuTransform.rotation;
-            //playerV4.SlideCameraTo(startMenuTransform.position, startMenuTransform.rotation);
-        }
-            
-    }
-
-    IEnumerator StartSequence()
-    {
-        playerV4.jogSpeed = 0f;
-        playerV4.runSpeed = 0f;
-        
-        
-        
-        betterWithSound.SetActive(true);
-        yield return new WaitForSeconds(betterWithSoundClip.length);
-        betterWithSound.SetActive(false);
-
-        musicManager.PauseMusic(); // toggle unlocks into play mode
-        
-
-        float elapsed = 0f;
-        while (elapsed < 1f)
-        {
-            elapsed += Time.deltaTime;
-            renderer.color = Color.Lerp(Color.black, Color.white, elapsed);
-            yield return null;
+            if (playerV4.isOptions)// turns options off, return camera, and turn start menu items back on
+            {
+                playerV4.isOptions = false;
+                startMenuObjects.SetActive(true);
+                optionsMenuObjects.SetActive(false);
+            }
         }
 
-        renderer.color = Color.white;
+        if (playerV4.isOptions)
+            playerV4.SlideCameraTo(optionsMenuTransform.position, optionsMenuTransform.rotation);
+        else
+            playerV4.SlideCameraTo(startTransform.position, startTransform.rotation);
     }
 
-    public void HandleStart()
+    public void StartPressed()
     {
-        playerV4.jogSpeed = 8f;
-        playerV4.runSpeed = 15f;
+        startMenu = false;
         startMenuObjects.SetActive(false);
+        optionsMenuObjects.SetActive(false);
         playerV4.isTeleporting = false;
+        playerV4.isOptions = false;
+        this.enabled = false;
     }
 }

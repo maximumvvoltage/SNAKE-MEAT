@@ -10,6 +10,7 @@ public class PlayerV4 : MonoBehaviour
     public LayerMask groundLayer;
     private WorldButtonSelector wbSelector;
     public DialogueManager dialogueManager;
+    public StartScreen startScreen;
 
     [Header("Movement")]
     public float walkSpeed = 3.5f;
@@ -35,7 +36,7 @@ public class PlayerV4 : MonoBehaviour
     public GameObject pauseMenuObjects;
     public GameObject optionsMenuObjects;
     private bool isPaused = false;
-    private bool isOptions;
+    public bool isOptions;
     public float pauseCameraMoveSpeed = 3f;
     private Vector3 prePausePosition;
     private Quaternion prePauseRotation;
@@ -71,24 +72,28 @@ public class PlayerV4 : MonoBehaviour
 
     void Update()
     {
-        HandlePause();
+        if (!startScreen.startMenu)
+        {
+            HandlePause();
 
-        if (!isPaused)
-        {
-            CheckGrounded();
-            HandleJump();
-            HandleCamera();
-            HandleWalkToggle();
-            HandleMovement();
-            PeopleTalking();
-        }
-        else
-        {
-            if (isOptions)
-                SlideCameraTo(optionsMenuTransform.position, optionsMenuTransform.rotation);
+            if (!isPaused)
+            {
+                CheckGrounded();
+                HandleJump();
+                HandleCamera();
+                HandleWalkToggle();
+                HandleMovement();
+                PeopleTalking();
+            }
             else
-                SlideCameraTo(pauseMenuTransform.position, pauseMenuTransform.rotation);
+            {
+                if (isOptions)
+                    SlideCameraTo(optionsMenuTransform.position, optionsMenuTransform.rotation);
+                else
+                    SlideCameraTo(pauseMenuTransform.position, pauseMenuTransform.rotation);
+            }
         }
+        
     }
 
     // ─── PAUSE & OPTIONS───────────────────────────────────────────────────────────────────────
@@ -166,6 +171,7 @@ public class PlayerV4 : MonoBehaviour
 
     void HandleMovement()
     {
+        if (isTeleporting) return;
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         Vector3 input = new Vector3(h, 0f, v);
@@ -250,15 +256,14 @@ public class PlayerV4 : MonoBehaviour
             camYaw = Mathf.LerpAngle(camYaw, camYawTarget, autoCenterSpeed * Time.deltaTime);
         }
 
-        // Position camera behind player using current camYaw
-        Quaternion yawRot = Quaternion.Euler(0f, camYaw, 0f);
+
+        Quaternion yawRot = Quaternion.Euler(0f, camYaw, 0f); //yaw rot positions camera behind player using current camYaw
         Vector3 orbitOffset = yawRot * new Vector3(0f, cameraHeight, cameraDistance);
         Vector3 desiredPos = transform.position + orbitOffset;
 
         cameraTransform.position = Vector3.Lerp(cameraTransform.position, desiredPos, cameraFollowSpeed * Time.deltaTime);
-
-        // Always look at the player
-        Vector3 lookTarget = transform.position + Vector3.up * 1.2f;
+        
+        Vector3 lookTarget = transform.position + Vector3.up * 1.2f;//this section ensures the cam will always be looking at shum
         Quaternion desiredRot = Quaternion.LookRotation(lookTarget - cameraTransform.position);
         cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, desiredRot, cameraRotateSpeed * Time.deltaTime);
     }

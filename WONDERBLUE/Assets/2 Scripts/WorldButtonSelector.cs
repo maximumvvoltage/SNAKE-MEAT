@@ -20,11 +20,11 @@ public class WorldButtonSelector : MonoBehaviour
         {
             case "NewGame":
                 playerV4.ReturnCameraToPlayer();
-                startScreen.HandleStart();
+                startScreen.StartPressed();
                 break;
             case "LoadGame":
                 break;
-            case "Options":
+            case "PauseOptions":
                 playerV4.HandleOptions();
                 break;
             case "Reset":
